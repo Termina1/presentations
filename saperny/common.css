@@ -1,7 +1,7 @@
 .fallback-message {
 	display: none;
 }
-a {
+a, b {
 	color: #003264;
 }
 body {
@@ -44,4 +44,24 @@ h1 {
 	padding-bottom: 20px;
 	width: 100%;
 	border-bottom: 1px solid #C0C0C0;
+}
+
+ul li {
+	margin-bottom: 20px;
+}
+
+
+pre {
+
+}
+
+.quote {
+	font-family: Georgia;
+	font-style: italic;
+}
+
+.quote .author {
+	display: block;
+	float: right;
+	margin: 20px;
 }
