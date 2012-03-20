@@ -1,0 +1,102 @@
+body {
+	background: #F3F0A1;
+}
+
+.fallback-message {
+	display: none;
+}
+
+.impress-not-supported .fallback-message {
+	display: block;
+}
+i {
+	color: #BA6222;
+}
+h2.coffee {
+	color: #BA6222;	
+}
+
+h2.js {
+	color: #3C4884
+}
+
+i.js {
+	color: #3C4884;
+}
+
+h1 {
+	font-size: 56px;
+	font-weight: normal;
+}
+h1.boil {
+	margin: 0;
+	padding: 0;
+	font-size: 44px;
+}
+
+h2 {
+	font-size: 32px;
+	font-weight: normal;
+}
+
+.slide {
+	width: 900px;
+	height: 650px;
+	padding: 30px;
+	border: solid 1px #fff;
+	box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
+	background: #fff;
+	font-size: 26px;
+	font-family: Arial;
+}
+	.slide ol {
+		margin-top: 20px;
+	}
+
+		.slide li {
+			margin-top: 20px;
+		}
+
+	.slide.wide {
+		width: 1300px;
+	}
+
+.slide#start {
+	font-family: Arial;
+	font-size: 50px;
+	font-style: italic;
+}
+
+.center {
+	text-align: center;
+}
+
+.middle {
+	margin-top: 200px;
+}
+
+#coffee-script > .center {
+	margin-top: 60px;
+}
+.codeblock {
+	float: left;
+	width: 45%;
+}
+.codeblock.js {
+	width: 54%;
+}
+pre.code {
+	font-size: 14px;
+	font-family: Courier New;
+}
+
+	pre.code .string {
+		color: #5D90CD;;
+	}
+
+	pre.code.js .rule {
+		color: #3C4884;
+	}
+	pre.code.coffee .rule {
+		color: #BA6222;
+	}
