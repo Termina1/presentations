@@ -1,5 +1,5 @@
 body {
-	background: #F3F0A1;
+	background: #e2d3bf;
 }
 
 .fallback-message {
@@ -16,12 +16,31 @@ h2.coffee {
 	color: #BA6222;	
 }
 
+.fl-lt > div {
+	float: left;
+	width: 49%;
+}
+.fl-lt > div > div {
+	margin: 30px 0 0 20px;
+	height: 70px;
+}
+
 h2.js {
 	color: #3C4884
+}
+h2.boil {
+	margin: 0 0 10px 0 !important;
+}
+h2.ics {
+	color: #00BFF3;
 }
 
 i.js {
 	color: #3C4884;
+}
+
+i.ics {
+	color: #00BFF3;
 }
 
 h1 {
@@ -39,6 +58,12 @@ h2 {
 	font-weight: normal;
 }
 
+	h2.title {
+		padding-bottom: 10px;
+		border-bottom: solid 2px #e0e0e0;
+		margin-bottom: 100px;
+	}
+
 .slide {
 	width: 900px;
 	height: 650px;
@@ -48,6 +73,7 @@ h2 {
 	background: #fff;
 	font-size: 26px;
 	font-family: Arial;
+	background: #fff url('bottom.png') no-repeat center bottom;
 }
 	.slide ol {
 		margin-top: 20px;
@@ -59,12 +85,21 @@ h2 {
 
 	.slide.wide {
 		width: 1300px;
+		background: #fff;
 	}
 
 .slide#start {
 	font-family: Arial;
 	font-size: 50px;
 	font-style: italic;
+}
+
+ol ol {
+	list-style: lower-alpha;
+}
+
+a {
+	color: #3C4884;
 }
 
 .center {
@@ -82,7 +117,7 @@ h2 {
 	float: left;
 	width: 45%;
 }
-.codeblock.js {
+.codeblock.js, .codeblock.ics {
 	width: 54%;
 }
 pre.code {
@@ -100,3 +135,8 @@ pre.code {
 	pre.code.coffee .rule {
 		color: #BA6222;
 	}
+
+	pre.code.ics .rule {
+		color: #00BFF3;
+	}
+	

@@ -1,0 +1,285 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+ <link href="coffee.css" rel="stylesheet" />
+ <script src="jquery.js"></script>
+  <script src="code.js"></script>
+<title>iUni.ru, CoffeeScript and IcedCoffeeScript</title>
+</head>
+<body>
+<div id="impress" class="impress-not-supported">
+
+    <div class="fallback-message">
+        <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+        <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser. Upcoming version 10 of Internet Explorer <i>should</i> also handle it.</p>
+    </div>
+    <div id='start' class='step slide center' data-x='0' data-y='0'>
+        <div class="middle"><i>CoffeeScript</i> is a new <i class="js">JavaScript</i></div>
+    </div>
+    <div id="me" class="step slide" data-x="0" data-y="1500">
+      <h2 class="title">А вы собственно кто?</h2>
+      <p>Слава, программист.</p>
+      <p>А так же:</p>
+      <div class="fl-lt">
+        <div>
+          <div><img src='iuni.png' alt=''/></div>
+          <div>CTO, <a href="http://iuni.ru">iUni.ru</a></div>
+        </div>
+        <div>
+          <div><img src="resumup.png" alt="" /></div>
+          <div>Senior Front-End Developer, <a href="http://resumup.com">ResumUP</a></div>
+        </div>
+      </div>
+    </div>
+    <div id='love-js' class='step slide' data-x='1500' data-y='0'>
+        <h2 class="title">Почему мы любим <i class="js">JavaScript</i>?</h2>
+        <ol>
+            <li>Он работает в браузере.</li>
+            <li>Он функциональный (функции высшего порядка, замыкания, гибкость системы типов).</li>
+            <li>Возможность ООП.</li>
+            <li>Лёгкость управления контекстом функции.
+        </ol>
+    </div>
+    <div id='dont-love-js' class='step slide' data-x='3000' data-y='0'>
+        <h2 class="title">Почему нам не нравится <i class="js">JavaScript</i>?</h2>
+        <ol>
+            <li>Очень многословный синтаксис.</li>
+            <li>Сложность реализации ООП.</li>
+            <li>Мало встроенных возможностей.</li>
+            <li>Сложность понимания больших блоков кода.</li>
+        </ol>
+    </div>
+    <div id='coffee-script' class='step slide' data-x='4500' data-y='0' data-rotate='90'>
+        <div class='center'>
+            <img src="awesome.jpg" alt="" width="100px"/>
+            <h1>Awesome<br /><i>CoffeeScript</i></h1>
+            <img src="coffeescript_logo.png" alt=""/>
+        </div>
+    </div>
+    <div id="coffee-advantages" class="step slide" data-x='6500' data-y='0' data-rotate='90' data-z='-1000'>
+        <h2 class="title">И зачем нам этот <i>CoffeeScript</i>?</h2>
+        <ol>
+            <li>Более выразительный и понятный синтаксис.</li>
+            <li>Возможность полноценного ООП без мучений.</li>
+            <li>Он действительно клёвый, программируя на нём мы получаем кучу удовольствия.
+        </ol>
+    </div>
+    <div id="coffee-cake" class="step slide" data-x='6500' data-y='1000' data-rotate='90' data-z='-2000'>
+        <div class="middle center"><h1>And now some cakes!</h1></div>
+    </div>
+    <div id="coffee-class" class="step slide wide" data-x='6500' data-y='2000' data-rotate='90' data-z='-3000'>
+        <h1 class="center boil">Предки и потомки</h1>
+        <div class="codeblock">
+        <h2 class="coffee">CoffeeScript</h2>
+        <pre class='coffee code'>
+class Coffee
+  constructor: ->
+    @name = 'coffee'
+  order: ->
+    "make me a cup of #{ @name }"
+
+class Latte extends Coffee
+  order: ->
+    @name = 'latte'
+    super
+        </pre></div>
+        <div class="codeblock js">
+        <h2 class="js">JavaScript</h2>
+        <pre class='js code'>
+var Coffee, Latte;
+var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
+  for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }
+  function ctor() { this.constructor = child; }
+  ctor.prototype = parent.prototype;
+  child.prototype = new ctor;
+  child.__super__ = parent.prototype;
+  return child;
+};
+Coffee = (function() {
+  function Coffee() {
+    this.name = 'coffee';
+  }
+  Coffee.prototype.order = function() {
+    return "make me a cup of " + this.name;
+  };
+  return Coffee;
+})();
+Latte = (function() {
+  __extends(Latte, Coffee);
+  function Latte() {
+    Latte.__super__.constructor.apply(this, arguments);
+  }
+  Latte.prototype.order = function() {
+    this.name = 'latte';
+    return Latte.__super__.order.apply(this, arguments);
+  };
+  return Latte;
+})();
+        </pre></div>
+    </div>
+    <div id="coffee-sugar" class="slide step wide" data-x='6500' data-y='3000' data-rotate='90' data-z='-4000'>
+      <h1 class="center boil">Be functional</h1>
+      <div class='codeblock'>
+        <h2 class="coffee">CoffeeScript</h2>
+        <pre class="code coffee">
+reverse = ([a, b]) -> [b, a]
+cakes = [[1, 2], [3, 4], [5, 6]]
+cakes = (reverse cake for cake in cakes)
+        </pre>
+      </div>
+      <div class="codeblock js">
+        <h2 class="js">JavaScript</h2>
+        <pre class="code js">
+var cake, cakes, reverse;
+reverse = function(_arg) {
+  var a, b;
+  a = _arg[0], b = _arg[1];
+  return [b, a];
+};
+cakes = [[1, 2], [3, 4], [5, 6]];
+cakes = (function() {
+  var _i, _len, _results;
+  _results = [];
+  for (_i = 0, _len = cakes.length; _i < _len; _i++) {
+    cake = cakes[_i];
+    _results.push(reverse(cake));
+  }
+  return _results;
+})();
+        </pre>
+      </div>
+    </div>
+    <div id="coffee-arr" class="slide step wide" data-x='6500' data-y='4000' data-rotate='90' data-z='-5000'>
+      <h1 class="center boil">Magic arrow</h1>
+      <div class='codeblock'>
+        <h2 class="coffee">CoffeeScript</h2>
+        <pre class="code coffee">
+bartenderBehaviour = ->
+  @order = []
+  @takeOrder = (client, dishes...) =>
+    @order.push dishes
+  @bill = (index) =>
+    dishes = @order[index]
+    total = (@cost dish for dish in dishes).reduce (ac, el) -> ac + el
+
+class CafeMan
+  cost: (dish) ->
+    1
+man = new CafeMan()
+bartenderBehaviour.apply man
+        </pre>
+      </div>
+      <div class="codeblock js">
+        <h2 class="js">JavaScript</h2>
+        <pre class="code js">
+var CafeMan, bartenderBehaviour, man;
+var __slice = Array.prototype.slice, 
+__bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+bartenderBehaviour = function() {
+  this.order = [];
+  this.takeOrder = __bind(function() {
+    var client, dishes;
+    client = arguments[0], 
+    dishes = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+    return this.order.push(dishes);
+  }, this);
+  return this.bill = __bind(function(index) {
+    var dish, dishes, total;
+    dishes = this.order[index];
+    return total = ((function() {
+      var _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = dishes.length; _i < _len; _i++) {
+        dish = dishes[_i];
+        _results.push(this.cost(dish));
+      }
+      return _results;
+    }).call(this)).reduce(function(ac, el) {
+      return ac + el;
+    });
+  }, this);
+};
+        </pre>
+      </div>
+    </div>
+    <div id="coffee-critic" class="slide step" data-x='11500' data-y='0' data-rotate='0' data-scale='0.5'>
+      <h2>Вернёмся с небес на землю</h2>
+      <ol>
+        <li>What you see is not what you get</li>
+        <li>Код получается избыточным</li>
+        <li>Дополнительное время на предкомпиляцию</li>
+      </ol>
+    </div>
+    <div id="just-js" class="slide step" data-x='12500' data-y='0'>
+      <h1 class="middle center"><i>CoffeeScript</i> is just <i class="js">JavaScript</i></h1>
+      <div class="center middle">Или может быть чуть больше?</div>
+    </div>
+    <div id="meet-ice" class="slide step center" data-x='14000' data-y='0'>
+      <h1 class="center middle">Meet <img style="margin-left: 12px; position: relative; top: 3px" src="iced-logo.png" alt="" /></h1>
+      <div class="center middle">Говорят, это больше чем JavaScript</div>
+    </div>
+    <div id="ice-concept" class="slide step wide" data-x='15500' data-y='0'>
+      <h1 class="center boil">Base Features</h1>
+      <div class='codeblock ics'>
+        <h2 class="ics">IcedCoffeeScript</h2>
+        <pre class="code ics">
+rand_wait = (autocb) ->
+  time = Math.floor  Math.random() * 5 
+  return 0 if time is 0
+  await setTimeout defer(), time
+  return time 
+        </pre>
+      </div>
+      <div class="codeblock coffee">
+        <h2 class="coffee">VanilaCoffeeScript</h2>
+        <pre class="code coffee">
+rand_wait = (autocb) ->
+  time = MAth.floor  Math.random() * 5
+  return autocb(0) if time is 0
+  setTimeout (-> autocb time), time 
+        </pre>
+      </div>
+    </div>
+    <div id="more-on-topic" class="step slide" data-x='17000'>
+      <h2 class="title">Для дальнейшего изучения</h2>
+      <ol>
+        <li><i class="coffee">CoffeeScript</i>
+          <ol>
+            <li><a href="http://coffeescript.org">http://coffeescript.org</a></li>
+            <li><a href="http://coffeescriptcookbook.com">http://coffeescriptcookbook.com</a></li>
+          </ol>
+        </li>
+        <li><i class="ics">IcedCoffeeScript</i>
+          <ol>
+            <li><a href="http://maxtaco.github.com/coffee-script/</a>">http://maxtaco.github.com/coffee-script/</a></li>
+            <li><a href="https://github.com/maxtaco/coffee-script/blob/iced/iced.md">https://github.com/maxtaco/coffee-script/blob/iced/iced.md</a></li>
+          </ol>
+        </li>
+      </ol>
+    </div>
+    <div id="training-day" class="step slide" data-x='18500'>
+      <h2 class="title boil">Стажировка в iUni.ru</h2>
+      <div class="center"><img src="train.jpg" alt="" width="520px"/></div>
+    </div>
+    <div id="the-end" class="step slide" data-x='20000'> 
+      <h2 class="title"><i>The</i> <i class="ics">End</i></h2>
+      <p>Вячеслав Шебанов, iUni.ru</p>
+      <p>Mailto: <a href="#">coder@iuni.ru</a></p>
+      <p>Адрес презентации:</p>
+      <p><a href="#">http://iuni.ru/coffee</a></p>
+      </p>
+    </div>
+    <div id="qr-code" class="step slide" data-x="21000" data-y="1500">
+      <div class="center" style="padding-top: 80px">
+        <img src="qr-code.gif" alt="" />
+      </div>
+    </div>
+   
+
+</div>
+<script src="impress.js"></script>
+<script>impress();</script>
+</body>
+</html>
