@@ -24,6 +24,12 @@
     <script>
       document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
     </script>
+    <style type="text/css">
+      img {
+        border: none !important;
+        box-shadow: none !important;;
+      }
+    </style>
 
     <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
@@ -47,20 +53,28 @@
           </p>
         </section>
         <section>
+          <h3>About me</h3>
+          <img src="front-end-conftocat.png"  height="500px"/>
+        </section>
+        <section>
           <h3>Quick on topic</h3>
           <ol>
             <li>Исход</li>
             <ul>
               <li class="fragment">Почеу callback'и это плохо</li>
+            </ul>
+            <li class="fragment">Promises</li>
+            <ul>
+              <li class="fragment">Основы</li>
               <li class="fragment">Promises/A+</li>
             </ul>
             <li class="fragment">ES Generators</li>
             <ul>
               <li class="fragment">Кратко о генераторах</li>
               <li class="fragment">Использование yield для асинхронных операций</li>
-              <li class="fragment">Generators + Promises</li>
             </ul>
-            <li class="fragment">Немного трюков</li>
+            <li class="fragment">Generators + Promises</li>
+            <li class="fragment">Другое</li>
           </ol>
         </section>
         <section>
@@ -83,6 +97,9 @@ function incrementViewCount(postId, callback) {
   });
 }
           </code></pre>
+        </section>
+        <section>
+          <img src="Sad-Cat-8.jpg" alt="Sad Cat" />
         </section>
         <section>
           <h3>What are the problems?</h3>
@@ -718,11 +735,14 @@ var subscription = source
           <ul>
             <li>Twitter: <a href="https://twitter.com/thought_sync">@thought_sync</a></li>
             <li>Github: <a href="https://github.com/Termina1">@Termina1</a></li>
-            <li>Презентация</li>
+            <li>Презентация: <a href="https://github.com/Termina1/presentations/tree/master/generators">Termina1/presentations</a></li>
           </ul>
         </section>
         <section data-background="#fff">
           <img src="Slide2.png" alt="" style="border:none">
+        </section>
+        <section data-background="#fff">
+          <img src="Slide3.png" alt="" style="border:none">
         </section>
       </div>
 
