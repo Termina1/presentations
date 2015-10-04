@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>reveal.js - The HTML Presentation Framework</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=cyrillic-ext,latin' rel='stylesheet' type='text/css'>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h2>Привет</h2>
+        </section>
+        <section>
+          <h2>Сегодня мы много говорим про скучные вещи</h2>
+        </section>
+        <section>
+          <img src="images/ember.png" height="308" width="324" alt="" />
+        </section>
+        <section>
+          <img src="images/ruby_is_over.png" height="408" width="962" alt="" />
+        </section>
+        <section>
+          <img src="images/angular.png" height="500" width="500" alt="" />
+        </section>
+        <section>
+          <h2>Angular DI v2</h2>
+        </section>
+        <section>
+          <h1>Почему?</h1>
+        </section>
+        <section>
+          <h3>Синтаксис</h3>
+          <pre style="margin-top: 50px;"><code>
+  import {Inject} from "di";
+  import {Fridge} from "./fridge";
+  import {Dishwasher} from "./dishwasher";
+
+  @Inject(Fridge, Dishwasher)
+  export class Kitchen {
+    constructor(a, b) {
+      //...
+    }
+  }
+          </code></pre>
+        </section>
+        <section>
+          <h3>Конструируем</h3>
+          <pre style="margin-top: 50px;"><code>
+  import {Injector} from "di";
+  import {Kitchen} from "./kitchen";
+
+  function init() {
+    var inject = new Injector([]);
+    var intance = inject.get(Kitchen);
+  }
+          </code></pre>
+        </section>
+        <section>
+          <h3>WTF import </h3>
+          <pre style="margin-top: 50px;"><code>
+  import {Injector} from "di";
+  import {Kitchen} from "./kitchen";
+          </code></pre>
+          <div class="fragment" style="font-size: 90px; margin-top: 30px;">¯\_(ツ)_/¯</div>
+        </section>
+        <section>
+          <h2>ES6 module syntax</h2>
+          <a href="http://wiki.ecmascript.org/doku.php?id=harmony:modules" target="_blank">http://wiki.ecmascript.org/doku.php?id=harmony:modules</a>
+        </section>
+        <section>
+        <h3>Mocks</h3>
+        <pre style="margin-top: 50px;"><code>
+  import {Provide} from "di";
+  import {Fridge} from "./fridge";
+
+  @Provide(Fridge)
+  class MockFridge {
+    constructor() {}
+  }
+          </code></pre>
+        </section>
+        <section>
+        <h3>Конструируем Mock</h3>
+        <pre style="margin-top: 50px;"><code>
+  import {Injector} from "di";
+  import {Kitchen} from "./kitchen";
+  import {MockFridge} from "./mock_fridge";
+
+  function init() {
+    var inject = new Injector([MockFridge]);
+    var intance = inject.get(Kitchen);
+  }
+          </code></pre>
+        </section>
+        <section>
+        <h3>Transient scope</h3>
+        <pre style="margin-top: 50px;"><code>
+  import {TransientScope} from "di";
+
+  @TransientScope()
+  class Knife {
+    constructor() {}
+  }
+          </code></pre>
+        </section>
+        <section>
+        <h3>SuperConstructor</h3>
+        <pre style="margin-top: 50px;"><code>
+  import {SuperConstructor, Inject} from "di";
+  import {Knife} from "./knife";
+
+  @Inject(SuperConstructor)
+  class SharpKnife {
+    constructor(superContructor) {
+      superContructor();
+    }
+  }
+          </code></pre>
+        </section>
+        <section>
+        <h3>InjectLazy</h3>
+        <pre style="margin-top: 50px;"><code>
+  import {InjectLazy} from "di";
+  import {Fridge} from "./fridge";
+
+  @InjectLazy(Fridge)
+  export class Kitchen {
+    constructor(makeFridge) {
+      //...
+    }
+  }
+          </code></pre>
+        </section>
+        <section>
+        <h3>InjectPromise</h3>
+        <pre style="margin-top: 50px;"><code>
+  import {InjectPromise} from "di";
+  import {Fridge} from "./fridge";
+
+  @InjectPromise(Fridge)
+  export class Kitchen {
+    constructor(fridgePromise) {
+      fridgePromise.then(fridge => console.log(`here is ${fridge}`))
+      //...
+    }
+  }
+          </code></pre>
+        </section>
+        <section>
+        <h3>ProvidePromise</h3>
+        <pre style="margin-top: 50px;"><code>
+  import {ProvidePromise} from "di";
+
+  @ProvidePromise(Fridge)
+  export class Fridge {
+    constructor() {
+    }
+  }
+          </code></pre>
+        </section>
+        <section>
+        <h3>Пример с фабрикой</h3>
+        <pre style="margin-top: 50px;"><code>
+  import {Provide} from "di";
+  import {Kitchen} from "./kitchen";
+
+  @Provide(Kitchen)
+  export function createFridge(fridge, dishwasher) {
+    return new Kitchen(fridge, dishwasher);
+  }
+          </code></pre>
+        </section>
+        <section>
+        <h3>Пример с фабрикой (Promise)</h3>
+        <pre style="margin-top: 50px;"><code>
+  import {Provide} from "di";
+  import {Kitchen} from "./kitchen";
+
+  @ProvidePromise(Kitchen)
+  export function createKitchen(fridge, dishwasher) {
+    return fetch('/api').then((data) => {
+      return new Kitchen(fridge, dishwasher, data);
+    });
+  }
+          </code></pre>
+        </section>
+        <section>
+        <h3>Конструирование класса с асинхронной зависимостью</h3>
+        <pre style="margin-top: 50px;"><code>
+  import {InjectPromise, Injector} from "di";
+  import {createKitchen} from "./create_kitchen";
+  import {createLivingRoom} from "./create_living_room";
+  import {Kitchen} from "./kitchen";
+  import {LivingRoom} from "./living_room";
+
+  @InjectPromise(Kitchen, LivingRoom)
+  class House {
+    constructor(kitchenP, livingroomP) {
+      return Promise.all([kitchenP, livingroomP]).then((results) => {
+        this.kitchen = results[0];
+        this.livingroom = results[1];
+      });
+    }
+  }
+  var inject = new Injector([createKitchen, createLivingRoom]);
+          </code></pre>
+        </section>
+        <section>
+        <h3>API Injector</h3>
+        <pre style="margin-top: 50px;"><code>
+  var inject = new Injector(modules, parentInjector, providers, scopes);
+  // modules — модули, которыми
+  // вы хотите перегрузить инжектор
+  //
+  // parentInjector — родительский инжектор,
+  // если модуль не будет найден в кэше текущего инжектора,
+  // то DI поищет в родительском, и в его родительском,
+  // и т.д. (ИЕРАРХИИ ИНЖЕКТОРОВ, ЧТОБЫ ЭТО НЕ ЗНАЧИЛО)
+  //
+  // providers и scopes сейчас, судя по всему
+  // не предназначены для использования никем кроме создателей
+
+          </code></pre>
+        </section>
+        <section>
+        <h3>Плюсы</h3>
+        <ul>
+          <li class="fragment">Понятный синтаксис</li>
+          <li class="fragment">Явный граф завимисостей</li>
+          <li class="fragment">Использует только ES6, никаких зависимостей</li>
+          <li class="fragment">Гибкость</li>
+        </ul>
+
+        </section>
+        <section>
+        <h3>Минусы</h3>
+        <ul>
+          <li class="fragment">Отсутствие документации</li>
+          <li class="fragment">WIP</li>
+          <li class="fragment">Порог вхождения</li>
+        </ul>
+
+        </section>
+        <section>
+        <h3>Подводные камни</h3>
+        <ul>
+          <li class="fragment">Аннотации только в traceur<pre><code>{annotations: true}</code></pre></li>
+          <li class="fragment">Нельзя минифицировать (если минификатор меняет названия переменных)</li>
+        </ul>
+
+        </section>
+        <section>
+        <h3>Ссылки</h3>
+        <ul>
+          <li>di.js: <a href="https://github.com/angular/di.js/" target="_blank">https://github.com/angular/di.js/</a></li>
+          <li>Выступление создателя: <a href="http://www.youtube.com/watch?v=_OGGsf1ZXMs" target="_blank">http://www.youtube.com/watch?v=_OGGsf1ZXMs</a> </li>
+          <li>Эксперимент с React: <a href="https://github.com/vojtajina/react-with-di" target="_blank">https://github.com/vojtajina/react-with-di</a> </li>
+        </ul>
+
+        </section>
+        <section>
+        <h3>Конец</h3>
+        <ul>
+          <li>Пишите в твиттер: <a href="https//twitter.com/thought_sync" target="_blank">@thought_sync</a></li>
+          <li>Ищите на github: <a href="https//twitter.com/thought_sync" target="_blank">Termina1</a> </li>
+        </ul>
+
+        </section>
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: 'simple', // available themes are in /css/theme
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>

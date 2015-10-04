@@ -1,0 +1,67 @@
+.fallback-message {
+	display: none;
+}
+a, b {
+	color: #003264;
+}
+body {
+	background: #C0C0C0;
+	font-family: Arial;
+	font-size: 24px;
+}
+.slide {
+	width: 1000px;
+	height: 700px;
+	background: #fff;
+	border-radius: 3px;
+	box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.30);
+	padding: 20px 20px 20px 30px;
+}
+
+h1 {
+	color: #000;
+	font-size: 36px;
+}
+
+.middle {
+	text-align: center;
+}
+
+.vertical {
+	margin-top: 30%;
+}
+
+.fl-lt {
+	float: left;
+}
+
+.half {
+	width: 50%;
+}
+
+.title {
+	margin-bottom: 10%;
+	padding-bottom: 20px;
+	width: 100%;
+	border-bottom: 1px solid #C0C0C0;
+}
+
+ul li {
+	margin-bottom: 20px;
+}
+
+
+pre {
+
+}
+
+.quote {
+	font-family: Georgia;
+	font-style: italic;
+}
+
+.quote .author {
+	display: block;
+	float: right;
+	margin: 20px;
+}

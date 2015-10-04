@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>reveal.js - The HTML Presentation Framework</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+    <style type="text/css">
+      img {
+        border: none !important;
+        box-shadow: none !important;;
+      }
+    </style>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-background="#fff">
+          <img  style="border: none"src="Slide1.png" alt="" />
+        </section>
+        <section>
+          <h2>Callback problem solved</h2>
+          <h3>A glimpse of future</h3>
+          <p>
+            <small>Вячеслав Шебанов / <a href="http://twitter.com/thought_sync">@thought_sync</a></small>
+          </p>
+        </section>
+        <section>
+          <h3>About me</h3>
+          <img src="front-end-conftocat.png"  height="500px"/>
+        </section>
+        <section>
+          <h3>Quick on topic</h3>
+          <ol>
+            <li>Исход</li>
+            <ul>
+              <li class="fragment">Почеу callback'и это плохо</li>
+            </ul>
+            <li class="fragment">Promises</li>
+            <ul>
+              <li class="fragment">Основы</li>
+              <li class="fragment">Promises/A+</li>
+            </ul>
+            <li class="fragment">ES Generators</li>
+            <ul>
+              <li class="fragment">Кратко о генераторах</li>
+              <li class="fragment">Использование yield для асинхронных операций</li>
+            </ul>
+            <li class="fragment">Generators + Promises</li>
+            <li class="fragment">Другое</li>
+          </ol>
+        </section>
+        <section>
+          <h3>Callback hell</h3>
+          <pre><code>
+function incrementViewCount(postId, callback) {
+  getPost(postId, function(result) {
+    if(result.error) {
+      callback(result.error);
+    } else {
+      result.post.views++;
+      savePost(result.post, function(result) {
+        if(!result.error) {
+          callback(false, result.count);
+        } else {
+          callback(result.error);
+        }
+      });
+    }
+  });
+}
+          </code></pre>
+        </section>
+        <section>
+          <img src="Sad-Cat-8.jpg" alt="Sad Cat" />
+        </section>
+        <section>
+          <h3>What are the problems?</h3>
+          <ol>
+            <li class="fragment">Отступы</li>
+            <li class="fragment">Обработка ошибок</li>
+          </ol>
+        </section>
+        <section>
+          <h3>Error handling with callbacks</h3>
+          <pre><code>
+incrementViewCount(1, function(error, count) {
+  if(error) {
+    showError();
+  } else {
+    updateView(count);
+  }
+});
+          </code></pre>
+        </section>
+        <section>
+          <h3>Error handling we want</h3>
+          <pre><code data-trim contenteditable>
+try {
+  var count = incrementViewCount(1);
+  updateView(count);
+} catch(e) {
+  showError(e);
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>What are the problems?</h3>
+          <ol>
+            <li>Отступы</li>
+            <li>Обработка ошибок</li>
+            <li class="fragment">Не работает с управляющими конструкциями (for/if)</li>
+          </ol>
+        </section>
+        <section>
+          <h1>Promises</h1>
+        </section>
+        <section>
+          <h3>Promises</h3>
+          <blockquote>Promise — объект, описывающий значение, которое будет доступно в будущем.</blockquote>
+          <p>Термин promise был предложен в 1976 году Даниэлем Фридманов и Дэвидом Уайзом</p>
+        </section>
+        <section>
+          <h3>Promises</h3>
+          <ul>
+            <li>Состояния</li>
+            <ul>
+              <li>pending — ожидает значение</li>
+              <li>rejected — произошла ошибка</li>
+              <li>fulfilled — выполнено успешно</li>
+            </ul>
+            <li>Методы</li>
+            <ul>
+              <li>then(function) — выполняет function, если promise перешел в состояние fulfilled</li>
+              <li>fail(funciton) — выполняет function, если promise перешел в состояние rejected</li>
+            </ul>
+          </ul>
+        </section>
+        <section>
+          <h3>Promises by example</h3>
+          <pre><code>
+function incrementViewCount(postId) {
+  return getPost(postId).then(function(post) {
+    post.views++;
+    return savePost(post);
+  });
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>Promises by example</h3>
+          <pre><code>
+incrementViewCount(10).then(updateView)
+          </code></pre>
+        </section>
+        <section>
+          <h3>Handling errors</h3>
+          <pre><code>
+function getPost(id) {
+  return new Promise(function(fulfill, reject) {
+    request('/posts/' + id, function(result) {
+      if(result.error) {
+        reject(result.error);
+      } else {
+        fulfill(result.post);
+      }
+    });
+  });
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>Handling errors</h3>
+          <pre><code>
+getPost(10).then(incrementPost).then(updateView).fail(showError)
+          </code></pre>
+          <p>Ошибки распространяются по цепочке</p>
+        </section>
+        <section>
+          <h3>Deferred objects</h3>
+          <pre><code>
+function getPost(id) {
+  var defer = Q.defer();
+  request('/posts/' + id, function(result) {
+    if(result.error) {
+      defer.reject(result.error);
+    } else {
+      defer.resolve(result.post);
+    }
+  });
+  return defer.promise;
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>Promises composition</h3>
+          <pre><code>
+var promises = [];
+for(var i = 0; i < operations.length; i++) {
+  promises.push(operations[i]());
+}
+Q.all(promises).then(process);
+          </code></pre>
+        </section>
+        <section>
+          <h3>Promises/A+</h3>
+          <p><a href="http://promises-aplus.github.io/promises-spec/">Спецификация</a> и набор тестов, чтобы все имплементации promise'ов удовлетворяли одним и тем же требованиям</p>
+          <q cite="http://domenic.me/2012/10/14/youre-missing-the-point-of-promises/">&ldquo;You're Missing the Point of Promises&rdquo;</q>, — <a href="https://twitter.com/domenic">@domenic</a>
+        </section>
+        <section>
+          <h3>Example implemetations</h3>
+          <ul>
+            <li><a href="https://github.com/kriskowal/q">kriskowal/q</a></li>
+            <li><a href="https://github.com/tildeio/rsvp.js">tildeio/rsvp.js</a></li>
+            <li><a href="https://github.com/cujojs/when">cujojs/when</a></li>
+          </ul>
+        </section>
+        <section>
+          <h3>Recap</h3>
+          <ul>
+            <li class="fragment">Меньшая вложенность</li>
+            <li class="fragment">Более простая обработка ошибок</li>
+            <li class="fragment">Не нужен дополнительный параметр для callback</li>
+            <li class="fragment">Все еще не работает с управляющими конструкциями (try/catch)</li>
+            <li class="fragment">Можно запускать несколько асинхронных операций паралельно</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Testing</h3>
+          <a href="http://chaijs.com/plugins/chai-as-promised">Chai as Promised</a>
+        </section>
+        <section>
+          <h1>ES Generators</h1>
+        </section>
+        <section>
+          <h3>Generators by Example</h3>
+          <pre><code>
+function* gen() {
+  var res = yield 1;
+  return res;
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>Generators by Example</h3>
+          <pre><code>
+var cycler = gen();
+>> [object Generator]
+          </code></pre>
+          <pre class="fragment"><code>
+cycler.send(2);
+>> {done: false, value: 1}
+          </code></pre>
+          <pre class="fragment"><code>
+cycler.next();
+>> {done: true, value: 2}
+          </code></pre>
+          <pre class="fragment"><code>
+cycler.next();
+>> TypeError: generator has already finished
+          </code></pre>
+        </section>
+        <section>
+          <h3>Error handling Example</h3>
+          <pre><code>
+function* gen() {
+  try {
+    yield 1;
+  } catch(e) {
+    console.log('This is an exception');
+  }
+  return 2;
+}
+          </code></pre>
+          <pre class="fragment"><code>
+var cycler = gen();
+cycler.next()
+>> {done: false, value: 1}
+cycler.throw('Some error');
+>> This is an exception
+          </code></pre>
+        </section>
+        <section>
+          <h3>Delegating yield*</h3>
+          <pre><code>
+function* second() {
+  yield 1;
+  yield 2;
+}
+
+function* first() {
+  yield* second();
+  return 3;
+}
+          </code></pre>
+          <pre class="fragment"><code>
+var cycler = first();
+cycler.next();
+>> {done: false, value: 1}
+          </code></pre>
+          <pre class="fragment"><code>
+cycler.next();
+>> {done: false, value: 2}
+          </code></pre>
+          <pre class="fragment"><code>
+cycler.next();
+>> {done: true, value: 3}
+          </code></pre>
+        </section>
+        <section>
+          <h3>Note on a syntax</h3>
+          <ul>
+            <li class="fragment">Зачем &ldquo;function*&rdquo;? yield не ключевое слово</li>
+            <li class="fragment">Генераторы являются итераторами</li>
+          </ul>
+          <pre class="fragment"><code>xhrGet(row, column) for (row of rows()) for (column of columns()))</code></pre>
+          <aside class="notes">Рассказать про причины отличия синтаксиса и про итераторы</aside>
+        </section>
+        <section>
+          <h3>Suspend pattern</h3>
+          <pre><code>
+var incrementViewCount = suspend(function* (resume, postId) {
+    var post = yield getPost(postId, resume);
+    post.count++;
+    var count = yield savePost(post, resume);
+    updateView(count);
+});
+          </code></pre>
+        </section>
+        <section>
+          <h3>Suspend Pattern Error handling</h3>
+          <pre><code>
+try {
+  incrementViewCount(10);
+} catch(e) {
+  //handle error
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>Implementation</h3>
+          <a href="https://github.com/jmar777/suspend">jmar777/suspend</a>
+          <pre><code>
+var suspend = module.exports = function suspend(generator) {
+
+  return function start() {
+    function resume(err, args...) {
+      if (err) return iterator.throw(err);
+      iterator.send(args);
+    }
+    var iterator = generator.apply(this, [resume].concat(arguments));
+    iterator.next();
+  };
+};
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Implementation details</h3>
+          <h4>Resume function</h4>
+          <pre><code>
+function resume(err, args...) {
+  if (err) return iterator.throw(err);
+  iterator.send(args);
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>Implementation details</h3>
+          <h4>Start</h4>
+          <pre><code>
+var iterator = generator.apply(this, [resume].concat(arguments));
+iterator.next();
+          </code></pre>
+        </section>
+        <section>
+          <h3>Recap</h3>
+          <ul>
+            <li class="fragment">Меньшая вложенность</li>
+            <li class="fragment">Работает с управляющими конструкциями</li>
+            <li class="fragment">Нужен дополнительный параметр для callback</li>
+            <li class="fragment">Синтаксис как у синхронных операций</li>
+            <li class="fragment">Нельзя запускать несколько асинхронных операций параллельно</li>
+          </ul>
+        </section>
+        <section>
+          <h1>Promises + Generators</h1>
+        </section>
+        <section>
+          <h3>Idea</h3>
+          <ul>
+            <li class="fragment">Promises</li>
+            <li class="fragment">Suspend pattern</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Removing callback</h3>
+          <pre><code>
+var incrementViewCount = suspend(function* (postId) {
+    var post = yield getPost(postId); // returns promise
+    post.count++;
+    var count = yield savePost(post); // returns promise
+    updateView(count);
+});
+          </code></pre>
+        </section>
+        <section>
+          <h3>Implementation</h3>
+          <pre><code>
+var suspend = function suspend(generator) {
+  return function start() {
+    function fail(error) {
+      iterator.throw(error);
+    }
+    var iterator = generator.apply(this, arguments);
+    iterator.next.apply(iterator, arguments).value
+      .then(function resume(result) {
+        var process = iterator.next(result);
+        if(process.done) {
+          return process.value;
+        } else {
+          return process.value.then(resume).fail(fail);
+        }
+      }).fail(fail);
+  };
+};
+          </code></pre>
+        </section>
+        <section>
+          <h3>Implementation</h3>
+          <h4>Fail</h4>
+          <pre><code>
+function fail(error) {
+  iterator.throw(error);
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Implementation</h3>
+          <h4>Resume</h4>
+          <pre><code>
+function resume(result) {
+  var process = iterator.next(result);
+  if(process.done) {
+    return process.value;
+  } else {
+    return process.value.then(resume).fail(fail);
+  }
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>Error handling</h3>
+          <pre><code>
+try {
+  incrementViewCount(10);
+} catch(e) {
+  //handle error
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>Async calls in parallel</h3>
+          <ul>
+            <li>Предыдущи код suspend pattern</li>
+            <li class="fragment">Q</li>
+            <li class="fragment">Немного фантазии</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Async calls in parallel</h3>
+          <pre><code>
+suspend(function*(services) {
+  var promises = [];
+  var results = [];
+  for(service of services) {
+    promises.push(fetchData(service, results));
+  }
+  yield Q.all(promises);
+  return process(results);
+});
+          </code></pre>
+        </section>
+        <section>
+          <h3>Recap</h3>
+            <ul>
+              <li class="fragment">Меньшая вложенность</li>
+              <li class="fragment">Работает с управляющими конструкциями</li>
+              <li class="fragment">Не нужен дополнительный параметр для callback</li>
+              <li class="fragment">Синтаксис как у синхронных операций</li>
+              <li class="fragment">Можно запускать несколько асинхронных операций</li>
+            </ul>
+        </section>
+        <section>
+          <h1>Tricks</h1>
+        </section>
+        <section>
+          <h3>Goroutines and channels</h3>
+          <pre><code>
+cs := make(chan string)
+go func() {
+    msg = <-cs
+    fmt.Println(msg)
+}()
+go func() {
+  cs <- "print it!"
+}()
+          </code></pre>
+        </section>
+        <section>
+          <h3>Goroutines with generators</h3>
+          <pre><code>
+var c = [];
+go(function* () {
+  var val = yield take(c);
+  console.log("process two took", val);
+});
+
+go(function* () {
+  yield put(c, i);
+});
+          </code></pre>
+        </section>
+        <section>
+          <h3>Goroutines implementation</h3>
+          <pre><code>
+function go_(machine, step) {
+  while(!step.done) {
+    var arr   = step.value(),
+        state = arr[0],
+        value = arr[1];
+
+    switch (state) {
+      case "park":
+        setImmediate(function() { go_(machine, step); });
+        return;
+      case "continue":
+        step = machine.next(value);
+        break;
+    }
+  }
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>Goroutines implementation</h3>
+          <pre><code>
+function put(chan, val) {
+  return function() {
+    if(chan.length == 0) {
+      chan.unshift(val);
+      return ["continue", null];
+    } else {
+      return ["park", null];
+    }
+  };
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>Goroutines implementation</h3>
+          <pre><code>
+function take(chan) {
+  return function() {
+    if(chan.length == 0) {
+      return ["park", null];
+    } else {
+      var val = chan.pop();
+      return ["continue", val];
+    }
+  };
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Goroutines implementation</h3>
+          <pre><code>
+function go(machine) {
+  var gen = machine();
+  go_(gen, gen.next());
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>FSM</h3>
+          <p>Конечные автоматы</p>
+          <img src="fsm.png" />
+        </section>
+        <section>
+          <h3>FSM</h3>
+          Конечный автомат состоит из:
+          <ul>
+            <li>Набора состояний</li>
+            <li>Алфавита</li>
+            <li>Таблицы переходов</li>
+            <li>Набора конечных состояний</li>
+          </ul>
+        </section>
+        <section>
+          <h3>FSM</h3>
+          <pre><code>
+var stateMachine = function(states, finals) {
+  var currentState = 0;
+  return function*() {
+    while(!finals.some(el => el === currentState)) {
+      var input = yield 'input';
+      var transition = states[currentState][input];
+      if(transition) {
+        currentState = transition;
+      } else {
+        return false;
+      }
+    }
+    return true;
+  }()
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>Reactive programming</h3>
+          <q>Реактивное программирование — парадигма программирования, ориентированная на потоки данных и распространение изменений. Это означает, что должна существовать возможность легко выражать статические и динамические потоки данных, а также то, что выполняемая модель должна автоматически распространять изменения сквозь поток данных.</q>
+        </section>
+
+        <section>
+          <h3>Reactive programming</h3>
+          <p>Императивное программирование</p>
+          <pre><code>
+b = 3
+c = 2
+a = b + c === a = 2 + 3 === a = 5
+          </code></pre>
+        </section>
+        <section>
+          <h3>Reactive programming</h3>
+          <p>Реактивное программирование</p>
+          <pre><code>
+b = 3
+c = 2
+a = b + c // зависимое выражение
+          </code></pre>
+        </section>
+        <section>
+          <h3>Reactive programming</h3>
+          <p>Потоки данных</p>
+          <a href="https://github.com/Reactive-Extensions/RxJS">Reactive-Extensions/RxJS</a>
+          <pre><code>
+var source = getAsyncStockData();
+
+var subscription = source
+  .filter(function (quote) {
+    return quote.symbol === 'MSFT';
+  })
+  .map(function (quote) {
+    return quote.price;
+  })
+  .subscribe(
+    function (price) {
+        console.log('MSFT Stock Prices: $' + price);
+    },
+    function (err) {
+        console.log('Something went wrong: ' + err.message);
+  });
+
+          </code></pre>
+        </section>
+        <section>
+          <section>
+            <h3>Links</h3>
+            <ul>
+              <li>Callbacks</li>
+                <ul>
+                  <li><a href="http://blog.trevnorris.com/2013/08/long-live-callbacks.html">long live the callbacks</a></li>
+                </ul>
+              <li>Generators and Promises</li>
+              <ul>
+                <li><a href="http://promises-aplus.github.io/promises-spec/">Promises/A+</a></li>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators">Iterators and generators</a></li>
+                <li><a href="http://2013.jsconf.eu/speakers/forbes-lindesay-promises-and-generators-control-flow-utopia.html">Promises and Generators: control flow utopia</a></li>
+                <li><a href="http://domenic.me/2012/10/14/youre-missing-the-point-of-promises/">You're Missing the Point of Promises</a></li>
+                <li><a href="http://swannodette.github.io/2013/08/24/es6-generators-and-csp/">ES6 Generators Deliver Go Style Concurrency</a></li>
+                <li><a href="https://github.com/jmar777/suspend">suspend.js</a></li>
+              </ul>
+            </ul>
+          </section>
+          <section>
+            <h3>More links</h3>
+            <ul>
+              <li>FSM</li>
+              <ul>
+                <li>Автоматное программирование, Поликарпова Н. И., Шалыто А. А</li>
+              </ul>
+              <li>Reactive programming</li>
+              <ul>
+                <li><a href="https://www.coursera.org/course/reactive">Principles of Reactive Programming</a></li>
+                <li><a href="http://meteor.com/">meteor.js</a></li>
+                <li><a href="https://github.com/Reactive-Extensions/RxJS">RxJS</a></li>
+                <li><a href="https://github.com/baconjs/bacon.js">bacon.js</a></li>
+                <li><a href="http://facebook.github.io/react/">React.js</a></li>
+                <li><a href="http://yang.github.io/reactive-coffee/">reactive.coffee</a></li>
+              </ul>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <h3>Feedback</h3>
+          <ul>
+            <li>Twitter: <a href="https://twitter.com/thought_sync">@thought_sync</a></li>
+            <li>Github: <a href="https://github.com/Termina1">@Termina1</a></li>
+            <li>Презентация: <a href="https://github.com/Termina1/presentations/tree/master/generators">http://github.com/Termina1/presentations</a></li>
+          </ul>
+        </section>
+        <section data-background="#fff">
+          <img src="Slide2.png" alt="" style="border:none">
+        </section>
+        <section data-background="#fff">
+          <img src="Slide3.png" alt="" style="border:none">
+        </section>
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: 'solarized', // available themes are in /css/theme
+        transition: 'linear',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
