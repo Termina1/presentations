@@ -1,0 +1,15 @@
+function gen(): Generator<string, int, int> {
+  $res = yield "first" => 0;
+  $res = yield "second" => 1 + $res;
+  yield "third" => 2 + $res;
+}
+
+function foo(): void {
+  foreach (gen($x) as $key => $x) {
+    echo $key.$x, "\n";
+  }
+}
+
+> "first0"
+> "second1"
+> "third4"

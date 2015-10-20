@@ -1,0 +1,8 @@
+<?hh
+
+function generateMe(string $greeting) : :xhp {
+  return <div>
+    <h1>Hello, world1</h1>
+    <p>{$greeting}</p>
+  </div>;
+}

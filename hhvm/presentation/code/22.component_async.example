@@ -1,0 +1,25 @@
+<?hh
+
+function twoAuthors(int $fid, int $sid) : :xhp {
+  return <x:frag>
+    <blog:author author={$fid}>
+    <blog:author author={$sid}>
+  </x:frag>;
+}
+
+class :blog:author extends :x:element {
+
+  attribute string author;
+
+  protected async function getUserFromDb(int $author) : Awaitable<array<string>> {
+    $user = await getFromDbAsync($author);
+    return array($user[0], $user[1]);
+  }
+
+  protected async function render() {
+    list($link, $name) = $this->getUserFromDb($this->:author);
+    return <div>
+      <a href={"/".$this->:author}>{$this->author}</a>
+    </div>;
+  }
+}

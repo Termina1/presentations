@@ -214,7 +214,7 @@ module.exports = {
     },
     listItem: {
       fontSize: "2.66em",
-      margin: "40px 0 40px 0"
+      margin: "20px 0 20px 0"
     },
     list: {
       textAlign: "left",

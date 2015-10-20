@@ -1,0 +1,19 @@
+<?hh
+
+function twoAuthors($f, $s) : :xhp {
+  return <x:frag>
+    <blog:author author={$f}>
+    <blog:author author={$s}>
+  </x:frag>;
+}
+
+class :blog:author extends :x:element {
+
+  attribute string author;
+
+  protected function render() : :xhp {
+    return <div>
+      <a href={"/".$this->:author}>{$this->author}</a>
+    </div>;
+  }
+}
