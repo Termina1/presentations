@@ -21,6 +21,12 @@ class ML extends React.Component {
   }
 }
 
+class MH extends React.Component {
+  render() {
+    return <Link href={this.props.href}>{this.props.href}</Link>
+  }
+}
+
 import preloader from "../src/utils/preloader";
 
 const images = {
@@ -28,7 +34,9 @@ const images = {
   paper: require('./images/paper_logo_inverted.svg'),
   vk: require('./images/vk.svg'),
   hack: require('./images/hack.png'),
-  types: require('./images/types.jpg')
+  types: require('./images/types.jpg'),
+  choose: require('./images/vybor_3.jpg'),
+  php7: require('./images/php7.jpg')
 };
 
 preloader([images.city, images.kat]);
@@ -182,6 +190,82 @@ export default class extends React.Component {
             lang="php"
             source={require("raw!./code/22.component_async.example")}
             margin="20px auto"/>
+        </Slide>
+        <Slide>
+          <Heading size={2}>Компоненты лучше шаблонов!</Heading>
+        </Slide>
+        <Slide>
+          <Heading size={2}>Structure typing (children, category)</Heading>
+        </Slide>
+        <Slide>
+          <Heading size={2}>Зачем?</Heading>
+        </Slide>
+        <Slide>
+          <ML>
+            <LI>Компонентный подход — это круто</LI>
+            <LI i>Хорошо работает в связке с React на фронте</LI>
+            <LI i>Асинхронный рендеринг и асинхронный код</LI>
+            <LI i>Защита от XSS по дефолту</LI>
+            <LI i>Это в 2 раза быстрее текущей версии php</LI>
+            <LI i>Можно использовать уже сейчас и не потерять совместимость</LI>
+          </ML>
+        </Slide>
+        <Slide>
+          <Heading size={2} style={{marginBottom: 20}}>Выбор?</Heading>
+          <Image src={images.choose} />
+        </Slide>
+        <Slide>
+          <Heading size={2} style={{marginBottom: 20}}>Выбор?</Heading>
+          <ML>
+            <LI>PHP 7</LI>
+          </ML>
+        </Slide>
+        <Slide>
+          <Heading size={2} style={{marginBottom: 20}}>Говорят он будет даже быстрее...</Heading>
+          <Image src={images.php7} />
+        </Slide>
+        <Slide>
+          <Heading size={2}>Еще</Heading>
+          <ML>
+            <LI>Какая-то система типов (Scalar/return type hints)</LI>
+            <LI i>Космический корабль ({'<=>'}) и ??</LI>
+          </ML>
+        </Slide>
+        <Slide>
+          <Heading size={2}>KPHP</Heading>
+        </Slide>
+        <Slide>
+          <Heading size={2}>Минусы HHVM</Heading>
+          <ML>
+            <LI>Работает только на Linux (говорят еще на OS X)</LI>
+            <LI>Есть процесс разогрева JIT</LI>
+            <LI>Есть несовместимости с PHP</LI>
+          </ML>
+        </Slide>
+        <Slide>
+          <Heading size={2}>Ссылки</Heading>
+          <div style={{fontSize: 10}}>
+            <ML>
+              <LI>1. react-php <MH href="http://reactphp.org/"/></LI>
+              <LI>2. Релиз HipHop <MH href="https://code.facebook.com/posts/522783257792850/hiphop-for-php-move-fast" /></LI>
+              <LI>3. Релиз HHVM <MH href="https://code.facebook.com/posts/495167483903373/the-hiphop-virtual-machine/"/></LI>
+              <LI>4. Блог про XHP <MH href="http://codebeforethehorse.tumblr.com/" /></LI>
+              <LI>5. Transpiler Hack -> PHP <MH href="https://code.facebook.com/posts/398235553660954/announcing-the-hack-transpiler/" /></LI>
+              <LI>6. PHP 7 performance <MH href="http://talks.php.net/oz15#/"/></LI>
+              <LI>7. KPHP <MH href="https://github.com/vk-com/kphp-kdb"/></LI>
+            </ML>
+          </div>
+        </Slide>
+        <Slide>
+          <Heading size={2}>Пишите</Heading>
+          <ML>
+            <LI>VK: Вячеслав Шебанов <MH href="https://vk.com/bysoul" /></LI>
+            <LI>Twitter: <Link href="https://twitter.com/thought_sync">@thought_sync</Link></LI>
+            <LI>Github: <Link href="https://github.com/Termina1">Termina1</Link></LI>
+          </ML>
+        </Slide>
+        <Slide>
+          <Heading size={2}>Вопросы?</Heading>
         </Slide>
       </Deck>
     );
