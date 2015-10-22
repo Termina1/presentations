@@ -9,6 +9,8 @@ var webpackConfig = getConfig({
   html: config.html
 });
 
+webpackConfig.output.publicPath = './';
+
 webpackConfig.module.loaders[0] = {
   test: /(\.js$)|(\.jsx$)/,
   exclude: /node_modules/,
