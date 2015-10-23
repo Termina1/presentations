@@ -1,0 +1,17 @@
+//ab -n 1000 http://paperpaper.ru/
+
+// HHVM
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       44   69  77.2     54    1171
+Processing:   214  344 210.8    287    2725
+Waiting:      112  187 150.4    142    2557
+Total:        267  413 233.1    345    2781
+
+// PHP 5.4
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       44   59  18.0     54     415
+Processing:   353  653 275.8    579    3357
+Waiting:      249  492 229.8    439    1802
+Total:        406  712 275.9    635    3411

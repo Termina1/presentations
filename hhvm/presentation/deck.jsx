@@ -23,7 +23,7 @@ class ML extends React.Component {
 
 class MH extends React.Component {
   render() {
-    return <Link href={this.props.href}>{this.props.href}</Link>
+    return <Link target="_blank" href={this.props.href}>{this.props.href}</Link>
   }
 }
 
@@ -88,7 +88,7 @@ export default class extends React.Component {
           <Heading size={2}>Поддержка асинхронности из коробки</Heading>
         </Slide>
         <Slide>
-          <Heading size={2}>Нет системы типов</Heading>
+          <Heading size={2}>Нет нормальной системы типов</Heading>
         </Slide>
         <Slide transition="zoom">
           <Image src={images.types} />
@@ -201,6 +201,13 @@ export default class extends React.Component {
           <Heading size={2}>Зачем?</Heading>
         </Slide>
         <Slide>
+          <Heading size={4}>Жизненный опыт</Heading>
+          <CodePane
+            lang="php"
+            source={require("raw!./code/26.hhvm.example")}
+            margin="20px auto"/>
+        </Slide>
+        <Slide>
           <ML>
             <LI>Компонентный подход — это круто</LI>
             <LI i>Хорошо работает в связке с React на фронте</LI>
@@ -233,6 +240,7 @@ export default class extends React.Component {
         </Slide>
         <Slide>
           <Heading size={2}>KPHP</Heading>
+          <MH href="https://github.com/vk-com/kphp-kdb"/>
         </Slide>
         <Slide>
           <Heading size={2}>Минусы HHVM</Heading>
@@ -253,6 +261,7 @@ export default class extends React.Component {
               <LI>5. Transpiler Hack -> PHP <MH href="https://code.facebook.com/posts/398235553660954/announcing-the-hack-transpiler/" /></LI>
               <LI>6. PHP 7 performance <MH href="http://talks.php.net/oz15#/"/></LI>
               <LI>7. KPHP <MH href="https://github.com/vk-com/kphp-kdb"/></LI>
+              <LI>8. Пост о Wordpress на HHVM <MH href="http://bit.ly/wphhvm"/></LI>
             </ML>
           </div>
         </Slide>

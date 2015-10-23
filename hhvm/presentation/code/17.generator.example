@@ -5,11 +5,12 @@ function gen(): Generator<string, int, int> {
 }
 
 function foo(): void {
-  foreach (gen($x) as $key => $x) {
+  $x = 0;
+  foreach (gen(1) as $key => $x) {
     echo $key.$x, "\n";
   }
 }
 
 > "first0"
-> "second1"
-> "third4"
+> "second2"
+> "third3"
