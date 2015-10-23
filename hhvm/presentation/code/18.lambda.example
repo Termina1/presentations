@@ -1,0 +1,18 @@
+<?hh
+
+$fn = ($a, $b) ==> $a + $b;
+
+echo $fn(1, 3) . "\n";
+
+$vector = Vector {1, 2, 3, 4};
+$vector = $vector->map($el ==> $el * 2);
+
+foreach ($vector as $k => $v) {
+  echo $k . ": " . $v . "\n";
+}
+
+> 4
+> 0: 2
+> 1: 4
+> 2: 6
+> 3: 8

@@ -159,6 +159,13 @@ export default class extends React.Component {
             margin="20px auto"/>
         </Slide>
         <Slide>
+          <Heading size={4}>Анонимные функции</Heading>
+          <CodePane
+            lang="php"
+            source={require("raw!./code/18.lambda.example")}
+            margin="20px auto"/>
+        </Slide>
+        <Slide>
           <Heading>{'<h1>'}XHP{'</h1>'}</Heading>
         </Slide>
         <Slide>
